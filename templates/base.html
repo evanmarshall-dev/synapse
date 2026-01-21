@@ -1,49 +1,72 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="description" content="Synapse">
-        <meta name="keywords" content="synapse, student projects">
-        <title>
-            {% block title %}
-                Synapse
-            {% endblock title %}
-        </title>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
-                defer></script>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-              rel="stylesheet">
-    </head>
-    <body>
-        <header>
-            <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="{% url 'home' %}">Synapse</a>
-                    <button class="navbar-toggler"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#navbarToggler"
-                            aria-controls="navbarToggler"
-                            aria-expanded="false"
-                            aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarToggler">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'post_create' %}">Add A Post</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </header>
-        <main class="container mt-4">
-            {% block page_content %}
-            {% endblock page_content %}
-        </main>
-    </body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Synapse - Connect with student software engineers" />
+    <meta name="keywords" content="synapse, students, software engineering, bootcamp, networking" />
+    <title>
+      {% block title %}
+        Synapse
+      {% endblock title %}
+    </title>
+    <link href="{% static 'css/base.css' %}" rel="stylesheet" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <a class="navbar-brand" href="{% url 'home' %}">Synapse</a>
+
+        <!-- Desktop Menu -->
+        <ul class="navbar-menu">
+          <li class="navbar-item">
+            <a class="navbar-link" href="{% url 'home' %}" aria-current="page">Home</a>
+          </li>
+          <li class="navbar-item">
+            <a class="navbar-link" href="{% url 'post_create' %}">Add A Post</a>
+          </li>
+        </ul>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="navbar-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <!-- Mobile Menu Dropdown -->
+        <ul class="navbar-menu-mobile">
+          <li>
+            <a href="{% url 'home' %}">Home</a>
+          </li>
+          <li>
+            <a href="{% url 'post_create' %}">Add A Post</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <div class="container">
+        {% block page_content %}
+        {% endblock page_content %}
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="stack stack-sm">
+          <div class="text-center">
+            <p style="color: var(--color-text-secondary); margin: 0;">
+              &copy; 2026 Synapse. All rights reserved.
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="{% static 'js/main.js' %}"></script>
+  </body>
 </html>

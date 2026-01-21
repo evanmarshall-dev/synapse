@@ -3,14 +3,113 @@
     Home | Synapse
 {% endblock title %}
 {% block page_content %}
-    <h1>Hello, Welcome to Synapse</h1>
-    <p>This is the home page of Synapse. Here you can find information about the platform and its features.</p>
-    {% comment %} {% if not user.is_authenticated %}
-        <form method="post" action="{% url 'home' %}">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="hidden" name="next" value="{{ next }}">
-            <button type="submit" class="btn btn-primary">Login</button>
-        </form>
-    {% endif %} {% endcomment %}
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container center">
+            <div class="hero-content">
+                <h1 class="hero-title">Connect. Network. Grow.</h1>
+                <p class="hero-subtitle">Your bootcamp community hub for meaningful connections and peer-to-peer learning</p>
+                {% comment %} <div class="hero-actions">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'posts:list' %}" class="btn btn-primary btn-lg">Explore Community</a>
+                        <a href="{% url 'posts:create' %}" class="btn btn-outline btn-lg">Share Your Story</a>
+                    {% else %}
+                        <a href="{% url 'admin:login' %}" class="btn btn-primary btn-lg">Get Started</a>
+                        <a href="#about" class="btn btn-ghost btn-lg">Learn More</a>
+                    {% endif %}
+                </div> {% endcomment %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section-featured">
+        <div class="container center">
+            <div class="section-header">
+                <h2>Why Synapse?</h2>
+                <p class="section-description">Everything you need to build lasting professional relationships</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h3>Authentic Connections</h3>
+                    <p>Connect with fellow bootcamp students on your journey. Share experiences, challenges, and victories with peers who understand.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💼</div>
+                    <h3>Professional Network</h3>
+                    <p>Build your professional profile and let your network grow. Share your LinkedIn, GitHub, and grad year to make meaningful connections.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💡</div>
+                    <h3>Peer Learning</h3>
+                    <p>Learn from your peers' experiences, projects, and insights. Share knowledge and grow together as a community of builders.</p>
+                </div>
+                {% comment %} <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Career Growth</h3>
+                    <p>Discover opportunities, job leads, and collaborations. Your network is your net worth in the tech industry.</p>
+                </div> {% endcomment %}
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section>
+        <div class="container center">
+            <div class="section-header">
+                <h2>How It Works</h2>
+                <p class="section-description">Getting started is simple and straightforward</p>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Create Your Username</h3>
+                    <p>Sign up and create your unique username. This is your identity on the Synapse platform where fellow bootcamp students can find and connect with you.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Add Your First Post</h3>
+                    <p>Share what you're working on, learning, or thinking about. When you create your first post, you'll add your bootcamp name, graduation year, and LinkedIn URL to build your professional profile.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Engage &amp; Connect</h3>
+                    <p>Discover posts from other bootcamp students and alumni. Connect with peers who share your interests and experiences. Every student you meet becomes part of your professional network.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3>Grow Together</h3>
+                    <p>Build lasting relationships with peers in your bootcamp community. Support each other, share opportunities, and grow your career together through the connections you've made.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta-section">
+        <div class="container center">
+            <div class="cta-content">
+                <h2>Ready to Join the Community?</h2>
+                <p>Be part of a vibrant network of ambitious bootcamp graduates building their careers together.</p>
+                {% if not user.is_authenticated %}
+                    <a href="{% url 'admin:login' %}" class="btn btn-primary btn-lg">Sign Up Now</a>
+                {% else %}
+                    <a href="{% url 'post_create' %}" class="btn btn-primary btn-lg">Create Your First Post</a>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container center">
+            <div class="about-content">
+                <h2>About Synapse</h2>
+                <p>Synapse is a community platform designed specifically for bootcamp students and alumni. We believe that the most valuable resource in your tech career is your network—the people you meet, the relationships you build, and the knowledge you share.</p>
+                <p>Whether you're just starting your bootcamp journey or already working in tech, Synapse connects you with peers who share your experiences and ambitions. It's a place where you can ask questions, share victories, showcase your work, and discover opportunities.</p>
+                <p class="about-highlight-text">Join us in building the future together.</p>
+            </div>
+        </div>
+    </section>
 {% endblock page_content %}
