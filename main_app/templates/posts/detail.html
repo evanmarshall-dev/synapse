@@ -10,8 +10,7 @@
     <h4>{{ post.linkedin_url }}</h4>
 
     <div class="post-actions">
-      <a href="{% url 'post_update' post.id %}" class="btn warn">Edit</a>
-      <a href="{% url 'post_delete' post.id %}" class="btn danger">Delete</a>
+      {% comment %} Update and delete links will be added by team member {% endcomment %}
     </div>
   </div>
 </section>

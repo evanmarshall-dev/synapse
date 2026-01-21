@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.shortcuts import render, redirect
 from django.contrib.auth.views import LoginView
 from main_app.models import Post
@@ -18,6 +17,10 @@ class PostCreate(CreateView):
     template_name = 'posts/post_form.html'
     # success_url = '/'
 
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
 def post_index(request):
     posts = Post.objects.all()
     return render(request, 'posts/index.html', {'posts': posts})
@@ -25,10 +28,6 @@ def post_index(request):
 def post_detail(request, post_id):
     post = Post.objects.get(id=post_id)
     return render(request, 'posts/detail.html', {'post': post})
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
 
 class SignUp(CreateView):
     form_class = UserCreationForm
