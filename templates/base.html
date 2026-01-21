@@ -26,7 +26,7 @@
           </li>
           {% if user.is_authenticated %}
             <li class="navbar-item">
-              <a class="navbar-link" href="{% url 'post_index' %}">Index</a>
+              <a class="navbar-link" href="{% url 'post_index' %}">All Posts</a>
             </li>
             <li class="navbar-item">
               <a class="navbar-link" href="{% url 'post_create' %}">Add A Post</a>
@@ -61,7 +61,7 @@
           </li>
           {% if user.is_authenticated %}
             <li>
-              <a href="{% url 'post_index' %}">Index</a>
+              <a href="{% url 'post_index' %}">All Posts</a>
             </li>
             <li>
               <a href="{% url 'post_create' %}">Add A Post</a>
