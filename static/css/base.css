@@ -323,6 +323,20 @@ h6 {
     background: linear-gradient(135deg, #1e40af, #7e22ce) !important;
   }
 
+  .post-detail-header {
+    background: linear-gradient(135deg, #1e40af, #7e22ce) !important;
+
+    & .post-program-badge,
+    & .post-detail-title,
+    & .post-grad-year {
+      color: #ffffff !important;
+    }
+
+    & .post-program-badge {
+      background-color: rgba(255, 255, 255, 0.2) !important;
+    }
+  }
+
   /* Dark mode button text contrast improvements */
   button,
   .btn {
@@ -365,11 +379,11 @@ h6 {
     }
 
     &.btn-outline {
-      color: var(--color-primary-400) !important;
-      border-color: var(--color-primary-400) !important;
+      color: #ffffff !important;
+      border-color: #ffffff !important;
 
       &:hover:not(:disabled) {
-        background-color: rgba(203, 213, 225, 0.1) !important;
+        background-color: rgba(255, 255, 255, 0.15) !important;
       }
     }
   }
@@ -669,12 +683,11 @@ footer {
   }
 }
 
-/* Posts Grid - Masonry-style for content cards */
+/* Posts Grid - Equal height cards layout */
 .posts-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
   gap: var(--space-lg);
-  align-items: start;
 
   @media (min-width: 640px) {
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -1011,6 +1024,175 @@ aside {
   & .post-actions {
     display: flex;
     gap: var(--space-sm);
+    align-items: center;
+  }
+}
+
+/* Post Card Link - Grid child that stretches and contains the card */
+.post-card-link {
+  display: grid; /* Grid auto-stretches single child to fill */
+  text-decoration: none;
+  color: inherit;
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base);
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    text-decoration: none;
+  }
+
+  &:active {
+    transform: translateY(-2px);
+    text-decoration: none;
+  }
+}
+
+/* Post Card Content - Structure for post information */
+.post-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  flex: 1;
+}
+
+/* Post Program Type - Badge styling */
+.post-program {
+  font-size: var(--font-size-sm);
+  color: var(--color-primary-600);
+  font-weight: var(--font-weight-semibold);
+  margin: 0;
+}
+
+/* Post Description - Truncate long text */
+.post-description {
+  color: var(--color-text-secondary);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+
+/* ========================================
+   POST DETAIL PAGE
+   ======================================== */
+
+/* Post Detail - Full post view */
+.post-detail {
+  max-width: var(--width-3xl);
+  margin-inline: auto;
+  background-color: var(--color-surface-elevated);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+/* Post Detail Header */
+.post-detail-header {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-600),
+    var(--color-accent-600)
+  );
+  padding: var(--space-xl);
+  color: var(--color-text-inverse);
+  position: static;
+  box-shadow: none;
+
+  @media (min-width: 768px) {
+    padding: var(--space-2xl);
+  }
+}
+
+/* Post Program Badge */
+.post-program-badge {
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: var(--color-text-inverse);
+  padding: var(--space-2xs) var(--space-sm);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-block-end: var(--space-sm);
+}
+
+/* Post Detail Title */
+.post-detail-title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  margin-block-end: var(--space-sm);
+  color: var(--color-text-inverse);
+  line-height: var(--line-height-tight);
+
+  @media (min-width: 768px) {
+    font-size: var(--font-size-4xl);
+  }
+}
+
+/* Post Detail Meta */
+.post-detail-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  margin-block-start: var(--space-sm);
+}
+
+/* Post Grad Year (detail variant) */
+.post-detail-meta .post-grad-year {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: var(--color-text-inverse);
+  padding: var(--space-2xs) var(--space-sm);
+}
+
+/* Post Detail Body */
+.post-detail-body {
+  padding: var(--space-lg);
+
+  @media (min-width: 768px) {
+    padding: var(--space-xl);
+  }
+}
+
+/* Post Detail Description */
+.post-detail-description {
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-primary);
+  margin-block-end: var(--space-lg);
+  white-space: pre-wrap;
+}
+
+/* Post Detail Links */
+.post-detail-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-block-start: var(--space-lg);
+  padding-block-start: var(--space-lg);
+  border-block-start: 1px solid var(--color-border);
+}
+
+/* Post Detail Footer */
+.post-detail-footer {
+  padding: var(--space-lg);
+  background-color: var(--color-surface);
+  border-block-start: 1px solid var(--color-border);
+  box-shadow: none;
+
+  @media (min-width: 768px) {
+    padding: var(--space-lg) var(--space-xl);
+  }
+
+  & .post-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    justify-content: space-between;
     align-items: center;
   }
 }
@@ -1991,6 +2173,26 @@ input[type='radio'] {
       & .btn {
         width: 100%;
       }
+    }
+  }
+
+  /* Hero Login Form Card */
+  & .card {
+    width: 100%;
+    max-width: var(--width-sm);
+    text-align: left;
+
+    & .form-group {
+      margin-block-end: var(--space-sm);
+    }
+
+    & .form-group-spaced {
+      margin-block-start: var(--space-md);
+    }
+
+    & .form-footer {
+      margin-block-start: var(--space-md);
+      margin-block-end: 0;
     }
   }
 }

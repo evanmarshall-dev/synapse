@@ -1,12 +1,13 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Synapse - Connect with student software engineers" />
-    <meta name="keywords" content="synapse, students, software engineering, bootcamp, networking" />
+    <meta name="description"
+          content="Synapse - Connect with student software engineers" />
+    <meta name="keywords"
+          content="synapse, students, software engineering, bootcamp, networking" />
     <title>
       {% block title %}
         Synapse
@@ -18,7 +19,6 @@
     <header>
       <nav class="navbar">
         <a class="navbar-brand" href="{% url 'home' %}">Synapse</a>
-
         <!-- Desktop Menu -->
         <ul class="navbar-menu">
           <li class="navbar-item">
@@ -32,9 +32,9 @@
               <a class="navbar-link" href="{% url 'post_create' %}">Add A Post</a>
             </li>
             <li class="navbar-item">
-              <form action="{% url 'logout' %}" method="post" style="display: inline;">
+              <form action="{% url 'logout' %}" method="post" class="logout-form">
                 {% csrf_token %}
-                <button type="submit" class="navbar-link" style="background:none; border:none; cursor:pointer; padding: 0; font: inherit;">Log Out</button>
+                <button type="submit" class="btn btn-primary">Log Out</button>
               </form>
             </li>
           {% else %}
@@ -46,14 +46,14 @@
             </li>
           {% endif %}
         </ul>
-
         <!-- Mobile Menu Toggle -->
-        <button class="navbar-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-          <span></span>
-          <span></span>
-          <span></span>
+        <button class="navbar-toggle"
+                aria-label="Toggle navigation menu"
+                aria-expanded="false">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
         </button>
-
         <!-- Mobile Menu Dropdown -->
         <ul class="navbar-menu-mobile">
           <li>
@@ -67,9 +67,9 @@
               <a href="{% url 'post_create' %}">Add A Post</a>
             </li>
             <li>
-              <form action="{% url 'logout' %}" method="post" style="display: inline;">
+              <form action="{% url 'logout' %}" method="post" class="logout-form">
                 {% csrf_token %}
-                <button type="submit" style="background:none; border:none; cursor:pointer; padding: 0; font: inherit; color: inherit; text-align: left;">Log Out</button>
+                <button type="submit" class="btn btn-primary">Log Out</button>
               </form>
             </li>
           {% else %}
@@ -83,26 +83,21 @@
         </ul>
       </nav>
     </header>
-
     <main>
       <div class="container">
         {% block page_content %}
         {% endblock page_content %}
       </div>
     </main>
-
     <footer>
       <div class="container">
         <div class="stack stack-sm">
           <div class="text-center">
-            <p style="color: var(--color-text-secondary); margin: 0;">
-              &copy; 2026 Synapse. All rights reserved.
-            </p>
+            <p class="footer-text">© 2026 Synapse. All rights reserved.</p>
           </div>
         </div>
       </div>
     </footer>
-
     <script src="{% static 'js/main.js' %}"></script>
   </body>
 </html>

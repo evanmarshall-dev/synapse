@@ -1,21 +1,18 @@
-{% extends 'base.html' %} {% load static %} {% block page_content %}
-
-<h1>Welcome, {{ user.username }}!</h1>
-
-<section class="card-container">
-  {% for post in posts %}
-  <a href="{% url 'post_detail' post.id %}">
-  <div class="card">
-    <div class="card-content">
-      <div class="card-img-container">
-    </div>
-      <h2 class="card-title">{{ post.title }}</h2>
-      <h4>{{ post.program_type }}</h4>
-      <p>{{ post.description }}</p>
-    </div>
-    </a>
-  </div>
-  {% endfor %}
-</section>
-
+{% extends "base.html" %}
+{% load static %}
+{% block page_content %}
+  <h1>Welcome, {{ user.username }}!</h1>
+  <section class="posts-grid">
+    {% for post in posts %}
+      <a href="{% url "post_detail" post.id %}" class="post-card-link">
+        <div class="card post-card">
+          <div class="post-card-content">
+            <h2 class="card-title">{{ post.title }}</h2>
+            {% if post.program_type %}<h4 class="post-program">{{ post.program_type }}</h4>{% endif %}
+            <p class="post-description">{{ post.description }}</p>
+          </div>
+        </div>
+      </a>
+    {% endfor %}
+  </section>
 {% endblock page_content %}
