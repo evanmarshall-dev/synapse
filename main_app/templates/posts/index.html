@@ -1,0 +1,21 @@
+{% extends 'base.html' %} {% load static %} {% block page_content %}
+
+<h1>Welcome, {{ user.username }}!</h1>
+
+<section class="card-container">
+  {% for post in posts %}
+  <a href="{% url 'post_detail' post.id %}">
+  <div class="card">
+    <div class="card-content">
+      <div class="card-img-container">
+    </div>
+      <h2 class="card-title">{{ post.title }}</h2>
+      <h4>{{ post.program_type }}</h4>
+      <p>{{ post.description }}</p>
+    </div>
+    </a>
+  </div>
+  {% endfor %}
+</section>
+
+{% endblock page_content %}
