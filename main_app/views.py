@@ -40,7 +40,7 @@ class PostUpdate(UpdateView):
 class PostDelete(DeleteView):
     model = Post
     template_name = 'posts/post_confirm_delete.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('post_index')
 
 class SignUp(CreateView):
     form_class = UserCreationForm

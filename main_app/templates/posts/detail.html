@@ -34,7 +34,8 @@
     <footer class="post-detail-footer">
       <div class="post-actions">
         <a href="{% url 'post_index' %}" class="btn btn-ghost">← Back to Community</a>
-        {% comment %} Update and delete links will be added by team member {% endcomment %}
+        <a href="{% url 'post_update' post.id %}" class="btn btn-outline">Edit</a>
+        <a href="{% url 'post_delete' post.id %}" class="btn btn-danger">Delete</a>
       </div>
     </footer>
   </article>
