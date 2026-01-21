@@ -4,120 +4,94 @@
 {% endblock title %}
 {% block page_content %}
     <article>
-            <header>
-                <h1>Share Your Story</h1>
-                <p class="form-help">Connect with other students and share your experiences, insights, and journey.</p>
-            </header>
-
-            {% if form.errors %}
-                <div class="form-errors">
-                    <strong>Please correct the following errors:</strong>
-                    <ul>
-                        {% for field, errors in form.errors.items %}
-                            {% for error in errors %}
-                                <li>{{ field }}: {{ error }}</li>
-                            {% endfor %}
-                        {% endfor %}
-                    </ul>
+        <header>
+            <h1>Share Your Story</h1>
+            <p class="form-help">Connect with other students and share your experiences, insights, and journey.</p>
+        </header>
+        {% if form.errors %}
+            <div class="form-errors">
+                <strong>Please correct the following errors:</strong>
+                <ul>
+                    {% for field, errors in form.errors.items %}
+                        {% for error in errors %}<li>{{ field }}: {{ error }}</li>{% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        <form action="" method="post" enctype="multipart/form-data" class="form">
+            {% csrf_token %}
+            <!-- Basic Information Section -->
+            <fieldset>
+                <legend>Post Details</legend>
+                <!-- Title Field -->
+                <div class="form-group">
+                    {{ form.title.label_tag }}
+                    {{ form.title }}
+                    {% if form.title.errors %}
+                        <div class="form-error">
+                            {% for error in form.title.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="form-help">Give your post a compelling title that captures the essence of your story.</div>
+                    {% endif %}
                 </div>
-            {% endif %}
-
-            <form action="" method="post" enctype="multipart/form-data" class="form">
-                {% csrf_token %}
-
-                <!-- Basic Information Section -->
-                <fieldset>
-                    <legend>Post Details</legend>
-
-                    <!-- Title Field -->
+                <!-- Description Field -->
+                <div class="form-group">
+                    {{ form.description.label_tag }}
+                    {{ form.description }}
+                    {% if form.description.errors %}
+                        <div class="form-error">
+                            {% for error in form.description.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="form-help">Share your thoughts, experiences, or advice. Be authentic and engaging!</div>
+                    {% endif %}
+                </div>
+            </fieldset>
+            <!-- Profile Information Section -->
+            <fieldset>
+                <legend>About You</legend>
+                <!-- Program Type Field -->
+                <div class="form-group">
+                    {{ form.program_type.label_tag }}
+                    {{ form.program_type }}
+                    {% if form.program_type.errors %}
+                        <div class="form-error">
+                            {% for error in form.program_type.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <!-- Two Column Row for Grad Year and LinkedIn -->
+                <div class="form-row">
+                    <!-- Grad Year Field -->
                     <div class="form-group">
-                        {{ form.title.label_tag }}
-                        {{ form.title }}
-                        {% if form.title.errors %}
+                        {{ form.grad_year.label_tag }}
+                        {{ form.grad_year }}
+                        {% if form.grad_year.errors %}
                             <div class="form-error">
-                                {% for error in form.title.errors %}
-                                    {{ error }}
-                                {% endfor %}
+                                {% for error in form.grad_year.errors %}{{ error }}{% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <!-- LinkedIn URL Field -->
+                    <div class="form-group">
+                        {{ form.linkedin_url.label_tag }}
+                        {{ form.linkedin_url }}
+                        {% if form.linkedin_url.errors %}
+                            <div class="form-error">
+                                {% for error in form.linkedin_url.errors %}{{ error }}{% endfor %}
                             </div>
                         {% else %}
-                            <div class="form-help">Give your post a compelling title that captures the essence of your story.</div>
+                            <div class="form-help">Optional: Let others connect with you on LinkedIn</div>
                         {% endif %}
                     </div>
-
-                    <!-- Description Field -->
-                    <div class="form-group">
-                        {{ form.description.label_tag }}
-                        {{ form.description }}
-                        {% if form.description.errors %}
-                            <div class="form-error">
-                                {% for error in form.description.errors %}
-                                    {{ error }}
-                                {% endfor %}
-                            </div>
-                        {% else %}
-                            <div class="form-help">Share your thoughts, experiences, or advice. Be authentic and engaging!</div>
-                        {% endif %}
-                    </div>
-                </fieldset>
-
-                <!-- Profile Information Section -->
-                <fieldset>
-                    <legend>About You</legend>
-
-                    <!-- Program Type Field -->
-                    <div class="form-group">
-                        {{ form.program_type.label_tag }}
-                        {{ form.program_type }}
-                        {% if form.program_type.errors %}
-                            <div class="form-error">
-                                {% for error in form.program_type.errors %}
-                                    {{ error }}
-                                {% endfor %}
-                            </div>
-                        {% endif %}
-                    </div>
-
-                    <!-- Two Column Row for Grad Year and LinkedIn -->
-                    <div class="form-row">
-                        <!-- Grad Year Field -->
-                        <div class="form-group">
-                            {{ form.grad_year.label_tag }}
-                            {{ form.grad_year }}
-                            {% if form.grad_year.errors %}
-                                <div class="form-error">
-                                    {% for error in form.grad_year.errors %}
-                                        {{ error }}
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                        </div>
-
-                        <!-- LinkedIn URL Field -->
-                        <div class="form-group">
-                            {{ form.linkedin_url.label_tag }}
-                            {{ form.linkedin_url }}
-                            {% if form.linkedin_url.errors %}
-                                <div class="form-error">
-                                    {% for error in form.linkedin_url.errors %}
-                                        {{ error }}
-                                    {% endfor %}
-                                </div>
-                            {% else %}
-                                <div class="form-help">Optional: Let others connect with you on LinkedIn</div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </fieldset>
-
-                <!-- Form Actions -->
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary btn-lg">
-                        Create Post
-                    </button>
-                    <a href="{% url 'home' %}" class="btn btn-secondary btn-lg">
-                        Cancel
-                    </a>
                 </div>
-            </form>
-        </article>
+            </fieldset>
+            <!-- Form Actions -->
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary btn-lg">Create Post</button>
+                <a href="{% url 'home' %}" class="btn btn-secondary btn-lg">Cancel</a>
+            </div>
+        </form>
+    </article>
 {% endblock page_content %}
