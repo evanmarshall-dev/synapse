@@ -82,29 +82,21 @@ WSGI_APPLICATION = 'synapse.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# DATABASES = {
-#      'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'synapse',
-#     }
-# }
+# Local default uses a simple Postgres database name; override when DATABASE_URL is present (Heroku sets this automatically).
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'synapse',
+    }
+}
 
-if 'ON_HEROKU' in os.environ:
-    DATABASES = {
-        "default": dj_database_url.config(
-            env='DATABASE_URL',
-            conn_max_age=600,
-            conn_health_checks=True,
-            ssl_require=True,
-        ),
-    }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'synapse',
-        }
-    }
+if os.environ.get('DATABASE_URL'):
+    DATABASES['default'] = dj_database_url.config(
+        default=os.environ['DATABASE_URL'],
+        conn_max_age=600,
+        conn_health_checks=True,
+        ssl_require=not DEBUG,
+    )
 
 
 # Password validation

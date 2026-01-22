@@ -1,1 +1,1 @@
-web: gunicorn synapse.wsgi.application.wsgi
+web: gunicorn synapse.wsgi:application
