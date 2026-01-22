@@ -32,6 +32,9 @@
               <a class="navbar-link" href="{% url 'post_create' %}">Add A Post</a>
             </li>
             <li class="navbar-item">
+              <a class="navbar-link" href="{% url 'profile' %}">Profile</a>
+            </li>
+            <li class="navbar-item">
               <form action="{% url 'logout' %}" method="post" class="logout-form">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-primary">Log Out</button>
@@ -65,6 +68,9 @@
             </li>
             <li>
               <a href="{% url 'post_create' %}">Add A Post</a>
+            </li>
+            <li>
+              <a href="{% url 'profile' %}">Profile</a>
             </li>
             <li>
               <form action="{% url 'logout' %}" method="post" class="logout-form">

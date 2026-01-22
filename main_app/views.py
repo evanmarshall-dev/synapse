@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.views import LoginView
-from main_app.models import Post, Comment
+from main_app.models import Post, Comment, Profile
 from main_app.forms import PostForm, CommentForm
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 # from django.contrib.auth.mixins import LoginRequiredMixin
+
+from django.contrib.auth.decorators import login_required
 
 class Home(LoginView):
     template_name = 'home.html'
@@ -38,6 +40,21 @@ class PostUpdate(UpdateView):
 
 # class PostDelete(LoginRequiredMixin, DeleteView):
 class PostDelete(DeleteView):
+    pass
+
+# Profile view for signed-in user
+@login_required
+def profile_view(request):
+    user = request.user
+    profile, created = Profile.objects.get_or_create(user=user)
+    user_posts = Post.objects.filter(user=user)
+    post_count = user_posts.count()
+    context = {
+        'profile': profile,
+        'user_posts': user_posts,
+        'post_count': post_count,
+    }
+    return render(request, 'profile/profile.html', context)
     model = Post
     template_name = 'posts/post_confirm_delete.html'
     success_url = reverse_lazy('post_index')

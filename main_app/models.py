@@ -2,6 +2,18 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 
+# Profile model to extend user information
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    # profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)  # Removed for now
+    about = models.TextField(max_length=500, blank=True)
+    linkedin_url = models.URLField(null=True, blank=True)
+    twitter_url = models.URLField(null=True, blank=True)
+    facebook_url = models.URLField(null=True, blank=True)
+
+    def __str__(self):
+        return f"Profile of {self.user.username}"
+
 class Post(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(max_length=255)
