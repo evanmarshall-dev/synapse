@@ -118,6 +118,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# Add this variable to specify additional directories for static files
+STATICFILES_DIRS = [BASE_DIR / 'static']
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
