@@ -989,6 +989,16 @@ aside {
   }
 }
 
+/* Static card variant to disable hover elevation */
+.card.card-static {
+  transition: none;
+}
+
+.card.card-static:hover {
+  transform: none;
+  box-shadow: var(--shadow-sm);
+}
+
 /* Post Card - Specific styling for student posts */
 .post-card {
   display: flex;

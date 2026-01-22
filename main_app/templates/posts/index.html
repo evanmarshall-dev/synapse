@@ -2,17 +2,24 @@
 {% load static %}
 {% block page_content %}
   <h1>Welcome, {{ user.username }}!</h1>
-  <section class="posts-grid">
-    {% for post in posts %}
-      <a href="{% url "post_detail" post.id %}" class="post-card-link">
-        <div class="card post-card">
-          <div class="post-card-content">
-            <h2 class="card-title">{{ post.title }}</h2>
-            {% if post.program_type %}<h4 class="post-program">{{ post.program_type }}</h4>{% endif %}
-            <p class="post-description">{{ post.description }}</p>
+  {% if posts %}
+    <section class="posts-grid">
+      {% for post in posts %}
+        <a href="{% url "post_detail" post.id %}" class="post-card-link">
+          <div class="card post-card">
+            <div class="post-card-content">
+              <h2 class="card-title">{{ post.title }}</h2>
+              {% if post.program_type %}<h4 class="post-program">{{ post.program_type }}</h4>{% endif %}
+              <p class="post-description">{{ post.description }}</p>
+            </div>
           </div>
-        </div>
-      </a>
-    {% endfor %}
-  </section>
+        </a>
+      {% endfor %}
+    </section>
+  {% else %}
+    <div class="card card-static">
+      <p>You currently have no posts.</p>
+      <a class="btn btn-primary" href="{% url 'post_create' %}">Create a post now</a>
+    </div>
+  {% endif %}
 {% endblock page_content %}
