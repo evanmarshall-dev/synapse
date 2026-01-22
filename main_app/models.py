@@ -13,13 +13,14 @@ class Profile(models.Model):
     program_type = models.CharField(max_length=100, null=True, blank=True)
     grad_year = models.IntegerField(null=True, blank=True)
     portfolio_url = models.URLField(null=True, blank=True)
+    image = models.FileField(upload_to="profile_images/", blank=True)
 
     def __str__(self):
         return f"Profile of {self.user.username}"
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
-    description = models.TextField(max_length=255)
+    description = models.TextField(max_length=500)
     program_type = models.CharField(max_length=100, null=True, blank=True)
     grad_year = models.IntegerField(null=True, blank=True)
     linkedin_url = models.URLField(null=True, blank=True)

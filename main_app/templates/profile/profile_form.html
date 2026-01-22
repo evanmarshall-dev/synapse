@@ -4,9 +4,9 @@
 <div class="container container-md">
   <div class="form-container">
     <h1 class="text-center">Edit Profile</h1>
-    <form method="post" class="form">
+    <form method="post" enctype="multipart/form-data" class="form">
       {% csrf_token %}
-      
+
       <fieldset>
         <legend>About You</legend>
         <div class="form-group">
@@ -16,6 +16,18 @@
             <div class="form-error">{{ form.about.errors }}</div>
           {% endif %}
           <p class="form-help">Tell us a little about yourself.</p>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Profile Image</legend>
+        <div class="form-group">
+          <label for="{{ form.image.id_for_label }}">Upload Image</label>
+          {{ form.image }}
+          {% if form.image.errors %}
+            <div class="form-error">{{ form.image.errors }}</div>
+          {% endif %}
+          <p class="form-help">Choose a profile picture to represent you.</p>
         </div>
       </fieldset>
 

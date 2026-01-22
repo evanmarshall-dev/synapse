@@ -10,6 +10,8 @@ python-dotenv = "*"
 whitenoise = "*"
 gunicorn = "*"
 dj-database-url = "*"
+django-cloudinary-storage = "*"
+cloudinary = "*"
 
 [dev-packages]
 djlint = "*"
