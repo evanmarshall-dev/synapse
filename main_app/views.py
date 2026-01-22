@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.views import LoginView
-from main_app.models import Post
-from main_app.forms import PostForm
+from main_app.models import Post, Comment
+from main_app.forms import PostForm, CommentForm
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth import login
@@ -54,3 +54,17 @@ class SignUp(CreateView):
     
     def get_success_url(self):
         return '/create/'
+
+
+class CommentCreate(CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'comments/comment_form.html'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.instance.post_id = self.kwargs['post_id']
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return self.object.post.get_absolute_url()

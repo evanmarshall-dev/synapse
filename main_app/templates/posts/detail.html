@@ -37,6 +37,33 @@
         <a href="{% url 'post_update' post.id %}" class="btn btn-outline">Edit</a>
         <a href="{% url 'post_delete' post.id %}" class="btn btn-danger">Delete</a>
       </div>
+    <section class="comments-section">
+      <h2>Comments ({{ post.comments.count }})</h2>
+      <div class="comment-form">
+        <form method="post" action="{% url 'comment_create' post.id %}">
+          {% csrf_token %}
+          <textarea name="content" rows="3" placeholder="Write a comment..." required></textarea>
+          <button type="submit" class="btn btn-primary">Post Comment</button>
+        </form>
+        <br/>
+      </div>
+      <div class="comments-list">
+        {% for comment in post.comments.all %}
+          <div class="comment">
+            <div class="comment-header">
+              <strong>{{ comment.user.username }}</strong>
+              <small class="comment-date">{{ comment.created_at }}</small>
+            </div>
+            <div class="comment-body">
+              {{ comment.content }}
+            </div>
+          </div>
+        {% empty %}
+          <p class="no-comments">No comments yet. Be the first to comment!</p>
+        {% endfor %}
+      </div>
+    </section>
+  </article>
     </footer>
   </article>
 {% endblock page_content %}
