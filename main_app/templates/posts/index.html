@@ -11,6 +11,15 @@
               <h2 class="card-title">{{ post.title }}</h2>
               {% if post.program_type %}<h4 class="post-program">{{ post.program_type }}</h4>{% endif %}
               <p class="post-description">{{ post.description }}</p>
+              <div class="post-meta">
+                <span class="post-author">
+                  {% if post.user.profile.first_name %}
+                    {{ post.user.profile.first_name }}{% if post.user.profile.last_name %} {{ post.user.profile.last_name|slice:':1' }}.{% endif %}
+                  {% else %}
+                    {{ post.user.username }}
+                  {% endif %}
+                </span>
+              </div>
             </div>
           </div>
         </a>

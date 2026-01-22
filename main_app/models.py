@@ -6,6 +6,8 @@ from django.contrib.auth.models import User
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     # profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)  # Removed for now
+    first_name = models.CharField(max_length=30, blank=True)
+    last_name = models.CharField(max_length=30, blank=True)
     about = models.TextField(max_length=500, blank=True)
     linkedin_url = models.URLField(null=True, blank=True)
     twitter_url = models.URLField(null=True, blank=True)
