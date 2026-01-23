@@ -1,3 +1,8 @@
+/* Comments Card - Always dark blue background */
+.comments-card {
+  background-color: #475569 !important; /* darker blue, but lighter than #334155 */
+  color: #fff;
+}
 /*
   Josh's Custom CSS Reset
   https://www.joshwcomeau.com/css/custom-css-reset/
@@ -213,7 +218,7 @@ h6 {
   --container-sm: min(100% - var(--space-md) * 2, 640px);
   --container-md: min(100% - var(--space-md) * 2, 768px);
   --container-lg: min(100% - var(--space-lg) * 2, 1024px);
-  --container-xl: min(100% - var(--space-lg) * 2, 1280px);
+  --container-xl: min(100% - var(--space-lg) * 2, 1536px);
   --container-2xl: min(100% - var(--space-xl) * 2, 1536px);
 
   /* Border Radius - Soft & Modern */
