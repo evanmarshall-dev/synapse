@@ -4,11 +4,27 @@
 <div class="container container-md">
   <div class="form-container">
     <h1 class="text-center">Edit Profile</h1>
-    <form method="post" class="form">
+    <form method="post" enctype="multipart/form-data" class="form">
       {% csrf_token %}
-      
+
       <fieldset>
         <legend>About You</legend>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="{{ form.first_name.id_for_label }}">First Name</label>
+            {{ form.first_name }}
+            {% if form.first_name.errors %}
+              <div class="form-error">{{ form.first_name.errors }}</div>
+            {% endif %}
+          </div>
+          <div class="form-group">
+            <label for="{{ form.last_name.id_for_label }}">Last Name</label>
+            {{ form.last_name }}
+            {% if form.last_name.errors %}
+              <div class="form-error">{{ form.last_name.errors }}</div>
+            {% endif %}
+          </div>
+        </div>
         <div class="form-group">
           <label for="{{ form.about.id_for_label }}">Bio</label>
           {{ form.about }}
@@ -16,6 +32,18 @@
             <div class="form-error">{{ form.about.errors }}</div>
           {% endif %}
           <p class="form-help">Tell us a little about yourself.</p>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Profile Image</legend>
+        <div class="form-group">
+          <label for="{{ form.image.id_for_label }}">Upload Image</label>
+          {{ form.image }}
+          {% if form.image.errors %}
+            <div class="form-error">{{ form.image.errors }}</div>
+          {% endif %}
+          <p class="form-help">Choose a profile picture to represent you.</p>
         </div>
       </fieldset>
 

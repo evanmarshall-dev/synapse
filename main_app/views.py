@@ -19,7 +19,7 @@ class PostCreate(CreateView):
     form_class = PostForm
     template_name = 'posts/post_form.html'
     # success_url = '/'
-    
+
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
@@ -61,7 +61,7 @@ def profile_view(request):
 
 class ProfileUpdate(LoginRequiredMixin, UpdateView):
     model = Profile
-    fields = ['about', 'program_type', 'grad_year', 'linkedin_url', 'portfolio_url']
+    fields = ['first_name', 'last_name', 'about', 'image', 'program_type', 'grad_year', 'linkedin_url', 'portfolio_url']
     template_name = 'profile/profile_form.html'
     success_url = reverse_lazy('profile')
 
@@ -71,13 +71,13 @@ class ProfileUpdate(LoginRequiredMixin, UpdateView):
 class SignUp(CreateView):
     form_class = UserCreationForm
     template_name = 'registration/signup.html'
-    
+
     def form_valid(self, form):
         response = super().form_valid(form)
         user = self.object
         login(self.request, user)
         return response
-    
+
     def get_success_url(self):
         return '/create/'
 

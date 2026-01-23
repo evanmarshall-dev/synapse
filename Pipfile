@@ -4,8 +4,14 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "*"
 psycopg2-binary = "*"
+whitenoise = "*"
+gunicorn = "*"
+dj-database-url = "*"
+django-cloudinary-storage = "*"
+cloudinary = "*"
+python-dotenv = "*"
+django = "*"
 
 [dev-packages]
 djlint = "*"
