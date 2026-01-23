@@ -89,7 +89,11 @@
             </fieldset>
             <!-- Form Actions -->
             <div class="form-actions">
-                <button type="submit" class="btn btn-primary btn-lg">Create Post</button>
+                {% if form.instance.pk %}
+                    <button type="submit" class="btn btn-primary btn-lg">Update Post</button>
+                {% else %}
+                    <button type="submit" class="btn btn-primary btn-lg">Create Post</button>
+                {% endif %}
                 <a href="{% url 'home' %}" class="btn btn-secondary btn-lg">Cancel</a>
             </div>
         </form>
