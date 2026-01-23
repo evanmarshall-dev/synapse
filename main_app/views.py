@@ -61,7 +61,7 @@ def profile_view(request):
 
 class ProfileUpdate(LoginRequiredMixin, UpdateView):
     model = Profile
-    fields = ['about', 'image', 'program_type', 'grad_year', 'linkedin_url', 'portfolio_url']
+    fields = ['first_name', 'last_name', 'about', 'image', 'program_type', 'grad_year', 'linkedin_url', 'portfolio_url']
     template_name = 'profile/profile_form.html'
     success_url = reverse_lazy('profile')
 

@@ -5,11 +5,16 @@
     <header class="post-detail-header">
       {% if post.program_type %}<span class="post-program-badge">{{ post.program_type }}</span>{% endif %}
       <h1 class="post-detail-title">{{ post.title }}</h1>
-      {% if post.grad_year %}
-        <div class="post-detail-meta">
+      <div class="post-detail-meta">
+        {% if post.user.profile.first_name %}
+          <span class="post-author">By {{ post.user.profile.first_name }}{% if post.user.profile.last_name %} {{ post.user.profile.last_name|slice:":1" }}.{% endif %}</span>
+        {% else %}
+          <span class="post-author">By {{ post.user.username }}</span>
+        {% endif %}
+        {% if post.grad_year %}
           <span class="post-grad-year">Class of {{ post.grad_year }}</span>
-        </div>
-      {% endif %}
+        {% endif %}
+      </div>
     </header>
     <div class="post-detail-body">
       <p class="post-detail-description">{{ post.description }}</p>
@@ -51,7 +56,13 @@
         {% for comment in post.comments.all %}
           <div class="comment">
             <div class="comment-header">
-              <strong>{{ comment.user.username }}</strong>
+              <strong>
+                {% if comment.user.profile.first_name %}
+                  {{ comment.user.profile.first_name }}{% if comment.user.profile.last_name %} {{ comment.user.profile.last_name|slice:':1' }}.{% endif %}
+                {% else %}
+                  {{ comment.user.username }}
+                {% endif %}
+              </strong>
               <small class="comment-date">{{ comment.created_at }}</small>
             </div>
             <div class="comment-body">
