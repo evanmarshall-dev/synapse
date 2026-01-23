@@ -39,8 +39,10 @@
     <footer class="post-detail-footer">
       <div class="post-actions">
         <a href="{% url 'post_index' %}" class="btn btn-ghost">← Back to Community</a>
-        <a href="{% url 'post_update' post.id %}" class="btn btn-outline">Edit</a>
-        <a href="{% url 'post_delete' post.id %}" class="btn btn-danger">Delete</a>
+        {% if user == post.user %}
+          <a href="{% url 'post_update' post.id %}" class="btn btn-outline">Edit</a>
+          <a href="{% url 'post_delete' post.id %}" class="btn btn-danger">Delete</a>
+        {% endif %}
       </div>
     <section class="comments-section">
       <h2>Comments ({{ post.comments.count }})</h2>

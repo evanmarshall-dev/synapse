@@ -22,7 +22,7 @@ class Profile(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
-    description = models.TextField(max_length=255)
+    description = models.TextField(max_length=500)
     program_type = models.CharField(max_length=100, null=True, blank=True)
     grad_year = models.IntegerField(null=True, blank=True)
     linkedin_url = models.URLField(null=True, blank=True)
