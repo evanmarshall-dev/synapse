@@ -1,34 +1,85 @@
+
 {% extends "base.html" %}
 {% load static %}
 {% block page_content %}
-  <h1>Welcome, {{ user.username }}!</h1>
-  {% if posts %}
-    <section class="posts-grid">
-      {% for post in posts %}
-        <a href="{% url "post_detail" post.id %}" class="post-card-link">
-          <div class="card post-card">
-            <div class="post-card-content">
-              <h2 class="card-title">{{ post.title }}</h2>
-              {% if post.program_type %}<h4 class="post-program">{{ post.program_type }}</h4>{% endif %}
-              <p class="post-description">{{ post.description }}</p>
-              <div class="post-meta">
-                <span class="post-author">
-                  {% if post.user.profile.first_name %}
-                    {{ post.user.profile.first_name }}{% if post.user.profile.last_name %} {{ post.user.profile.last_name|slice:':1' }}.{% endif %}
-                  {% else %}
-                    {{ post.user.username }}
+<div class="container community-container">
+  <div class="grid grid-sidebar gap-lg">
+    <!-- Sidebar: Community Navigation -->
+    <aside class="stack">
+      <div>
+        <h3>Years</h3>
+        <nav class="stack stack-sm">
+          <a href="{% url 'post_index' %}" class="btn btn-ghost text-start {% if not request.GET.year %}active{% endif %}">All Posts</a>
+          {% for y in years %}
+            <a href="{% url 'post_index' %}?year={{ y }}" class="btn btn-ghost text-start {% if request.GET.year == y|stringformat:'s' %}active{% endif %}">Class of {{ y }}</a>
+          {% endfor %}
+        </nav>
+      </div>
+    </aside>
+
+    <!-- Main Feed -->
+    <main class="stack">
+      <!-- Filters -->
+      <form method="get" class="community-filters mb-3" style="display: flex; align-items: center; gap: 1rem;">
+        {% if request.GET.year %}
+          <input type="hidden" name="year" value="{{ request.GET.year }}">
+        {% endif %}
+        <h2 class="m-0" style="flex:1;">Community Feed</h2>
+        <select name="program" class="form-control" onchange="this.form.submit()" style="max-width: 220px;">
+          <option value="">All Programs</option>
+          {% for prog in programs %}
+            <option value="{{ prog }}" {% if request.GET.program == prog %}selected{% endif %}>{{ prog }}</option>
+          {% endfor %}
+        </select>
+      </form>
+
+      <!-- Create Post Button -->
+      <div class="community-create-post mb-3" style="text-align: right;">
+        <a href="{% url 'post_create' %}" class="btn btn-primary" style="border-radius: 20px; padding: 0.5rem 1.5rem; font-weight: 600;">+ Start a new post</a>
+      </div>
+
+      {% if posts %}
+        <div class="community-feed stack">
+          {% for post in posts %}
+            <a href="{% url 'post_detail' post.id %}" class="post-card-link">
+              <div class="card post-card mb-3" style="transition: box-shadow 0.2s;">
+                <div class="post-card-content">
+                  <div class="post-meta mb-2" style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span class="post-author font-bold">
+                      {% if post.user.profile.first_name %}
+                        {{ post.user.profile.first_name }} {{ post.user.profile.last_name|slice:':1' }}.
+                      {% else %}
+                        {{ post.user.username }}
+                      {% endif %}
+                    </span>
+                    <span class="text-secondary">•</span>
+                    <span class="text-secondary text-sm">{{ post.created_at|date:"M d" }}</span>
+                    {% if post.grad_year %}
+                      <span class="text-secondary">•</span>
+                      <span class="post-grad-year" style="font-size: 0.75rem;">'{{ post.grad_year|stringformat:"i"|slice:"-2:" }}</span>
+                    {% endif %}
+                  </div>
+                  <h2 class="card-title mb-1">{{ post.title }}</h2>
+                  {% if post.program_type %}
+                    <span class="post-program-badge mb-2 inline-block">{{ post.program_type }}</span>
                   {% endif %}
-                </span>
+                  <p class="post-description">{{ post.description|truncatechars:150 }}</p>
+                  <div class="mt-3 pt-3 border-top" style="border-top: 1px solid #eee;">
+                    <span class="text-secondary text-sm">💬 {{ post.comments.count }} Comments</span>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </a>
-      {% endfor %}
-    </section>
-  {% else %}
-    <div class="card card-static">
-      <p>You currently have no posts.</p>
-      <a class="btn btn-primary" href="{% url 'post_create' %}">Create a post now</a>
-    </div>
-  {% endif %}
+            </a>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="card text-center p-5">
+          <h3>No posts found</h3>
+          <p>Try adjusting your filters or create a new post.</p>
+          <a class="btn btn-primary mt-3" href="{% url 'post_create' %}">Create Post</a>
+        </div>
+      {% endif %}
+    </main>
+  </div>
+</div>
 {% endblock page_content %}

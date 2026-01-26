@@ -11,7 +11,10 @@
         {% else %}
           <span class="post-author">By {{ post.user.username }}</span>
         {% endif %}
+        <span class="text-secondary">•</span>
+        <span class="text-secondary text-sm">{{ post.created_at|date:"M d, Y" }}</span>
         {% if post.grad_year %}
+          <span class="text-secondary">•</span>
           <span class="post-grad-year">Class of {{ post.grad_year }}</span>
         {% endif %}
       </div>
@@ -36,28 +39,34 @@
         </div>
       {% endif %}
     </div>
-    <footer class="post-detail-footer">
-      <div class="post-actions">
-        <a href="{% url 'post_index' %}" class="btn btn-ghost">← Back to Community</a>
+
+    <!-- Post Actions: separated from comments -->
+
+    <div class="post-actions mb-4" style="display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+      <a href="{% url 'post_index' %}" class="btn btn-ghost">← Back to Community</a>
+      <span>
         {% if user == post.user %}
           <a href="{% url 'post_update' post.id %}" class="btn btn-outline">Edit</a>
           <a href="{% url 'post_delete' post.id %}" class="btn btn-danger">Delete</a>
         {% endif %}
-      </div>
+      </span>
+    </div>
+
     <section class="comments-section">
-      <h2>Comments ({{ post.comments.count }})</h2>
-      <div class="comment-form">
-        <form method="post" action="{% url 'comment_create' post.id %}">
-          {% csrf_token %}
-          <textarea name="content" rows="3" placeholder="Write a comment..." required></textarea>
-          <button type="submit" class="btn btn-primary">Post Comment</button>
-        </form>
-        <br/>
-      </div>
-      <div class="comments-list">
-        {% for comment in post.comments.all %}
-          <div class="comment">
-            <div class="comment-header">
+      <div class="card comments-card mt-4">
+        <h2>Comments ({{ post.comments.count }})</h2>
+        <div class="comment-form">
+          <form method="post" action="{% url 'comment_create' post.id %}">
+            {% csrf_token %}
+            <textarea name="content" rows="3" placeholder="Write a comment..." required></textarea>
+            <button type="submit" class="btn btn-primary">Post Comment</button>
+          </form>
+          <br/>
+        </div>
+        <div class="comments-list">
+          {% for comment in post.comments.all %}
+            <div class="comment">
+              <div class="comment-header">
               <strong>
                 {% if comment.user.profile.first_name %}
                   {{ comment.user.profile.first_name }}{% if comment.user.profile.last_name %} {{ comment.user.profile.last_name|slice:':1' }}.{% endif %}
@@ -66,14 +75,15 @@
                 {% endif %}
               </strong>
               <small class="comment-date">{{ comment.created_at }}</small>
+              </div>
+              <div class="comment-body">
+                {{ comment.content }}
+              </div>
             </div>
-            <div class="comment-body">
-              {{ comment.content }}
-            </div>
-          </div>
-        {% empty %}
-          <p class="no-comments">No comments yet. Be the first to comment!</p>
-        {% endfor %}
+          {% empty %}
+            <p class="no-comments">No comments yet. Be the first to comment!</p>
+          {% endfor %}
+        </div>
       </div>
     </section>
   </article>
