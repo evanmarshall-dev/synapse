@@ -26,7 +26,18 @@ class PostCreate(CreateView):
 
 def post_index(request):
     posts = Post.objects.all()
-    return render(request, 'posts/index.html', {'posts': posts})
+    # Get all unique grad_years from posts, ignoring nulls
+    years = Post.objects.exclude(grad_year__isnull=True).values_list('grad_year', flat=True).distinct().order_by('-grad_year')
+    programs = Post.objects.exclude(program_type__isnull=True).exclude(program_type='').values_list('program_type', flat=True).distinct().order_by('program_type')
+    # Filter by year if requested
+    year = request.GET.get('year')
+    if year:
+        posts = posts.filter(grad_year=year)
+    # Filter by program if requested
+    program = request.GET.get('program')
+    if program:
+        posts = posts.filter(program_type=program)
+    return render(request, 'posts/index.html', {'posts': posts, 'years': years, 'programs': programs})
 
 def post_detail(request, post_id):
     post = Post.objects.get(id=post_id)
@@ -42,6 +53,7 @@ class PostUpdate(UpdateView):
 class PostDelete(DeleteView):
     model = Post
     success_url = reverse_lazy('post_index')
+    template_name = 'posts/post_confirm_delete.html'
 
 # Profile view for signed-in user
 @login_required
